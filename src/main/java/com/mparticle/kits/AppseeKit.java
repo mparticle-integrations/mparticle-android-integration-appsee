@@ -8,6 +8,9 @@ import com.appsee.Appsee;
 import com.mparticle.MPEvent;
 import com.mparticle.MParticle;
 import com.mparticle.identity.MParticleUser;
+import com.mparticle.kits.core.FilteredIdentityApiRequest;
+import com.mparticle.kits.core.KitIntegration;
+import com.mparticle.kits.core.ReportingMessage;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -15,10 +18,10 @@ import java.util.List;
 import java.util.Map;
 
 
-public class AppseeKit extends KitIntegration implements KitIntegration.EventListener, KitIntegration.IdentityListener {
+public class AppseeKit extends AbstractKitIntegration implements KitIntegration.EventListener, KitIntegration.IdentityListener {
 
     @Override
-    protected List<ReportingMessage> onKitCreate(final Map<String, String> settings, Context context) {
+    public List<ReportingMessage> onKitCreate(final Map<String, String> settings, Context context) {
 
         if (!settings.containsKey("apiKey")) {
             throw new RuntimeException("Error: Appsee Kit couldn't start since apiKey is missing");
@@ -43,7 +46,7 @@ public class AppseeKit extends KitIntegration implements KitIntegration.EventLis
 
         List<ReportingMessage> messageList = new LinkedList<>();
         messageList.add(
-                new ReportingMessage(this, ReportingMessage.MessageType.OPT_OUT, System.currentTimeMillis(), null)
+                new ReportingMessageImpl(this, ReportingMessageImpl.MessageType.OPT_OUT, System.currentTimeMillis(), null)
                         .setOptOut(optedOut)
         );
         return messageList;
@@ -90,7 +93,7 @@ public class AppseeKit extends KitIntegration implements KitIntegration.EventLis
         Appsee.addEvent(mpEvent.getEventName(), eventProps);
 
         List<ReportingMessage> messageList = new LinkedList<>();
-        messageList.add(ReportingMessage.fromEvent(this, mpEvent));
+        messageList.add(ReportingMessageImpl.fromEvent(this, mpEvent));
         return messageList;
     }
 
@@ -100,7 +103,7 @@ public class AppseeKit extends KitIntegration implements KitIntegration.EventLis
 
         List<ReportingMessage> messageList = new LinkedList<>();
         messageList.add(
-                new ReportingMessage(this, ReportingMessage.MessageType.SCREEN_VIEW, System.currentTimeMillis(), null)
+                new ReportingMessageImpl(this, ReportingMessageImpl.MessageType.SCREEN_VIEW, System.currentTimeMillis(), null)
                         .setScreenName(s));
         return messageList;
     }
