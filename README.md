@@ -1,7 +1,14 @@
 ## Appsee Kit Integration
 
+### The Appsee integration is no longer supported
 
-This repository contains the [Appsee](https://www.appsee.com/) integration for the [mParticle Android SDK](https://github.com/mParticle/mparticle-android-sdk).
+The Appsee integration for the mParticle Android SDK has been deprecated and is no longer supported. To find an alternative integration, visit [mParticle Integrations](https://docs.mparticle.com/integrations/).
+
+-----
+
+**Deprecated**
+
+This repository contains the Appsee integration for the [mParticle Android SDK](https://github.com/mParticle/mparticle-android-sdk).
 
 ### Adding the integration
 
